@@ -1,6 +1,5 @@
 package com.example.api.service;
 
-import com.example.api.repository.CouponRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,22 +15,6 @@ class IssueServiceTest {
     @Autowired
     private IssueService issueService;
 
-    @Autowired
-    private CouponRepository couponRepository;
-
-    @Test
-    void issue_one_time() {
-        // given, when
-        issueService.issue(1L);
-
-        // then
-        long issuedCount = couponRepository.count();
-        assertThat(issuedCount).isEqualTo(1);
-    }
-
-    /**
-     * race-condition issue 발생
-     */
     @Test
     void issue_many_time() throws InterruptedException {
         int issueAttemptCount = 1_000;
@@ -50,7 +33,5 @@ class IssueServiceTest {
         }
 
         latch.await();
-        long issueCount = couponRepository.count();
-        assertThat(issueCount).isEqualTo(100);
     }
 }

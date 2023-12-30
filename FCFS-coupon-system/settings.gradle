@@ -2,4 +2,5 @@ rootProject.name = 'FCFS-coupon-system'
 
 include 'race-condition'
 include 'prevent-race-condition-by-redis'
-include 'prevent-race-condition-by-kafka'
+include 'prevent-race-condition-by-kafka-producer'
+include 'prevent-race-condition-by-kafka-consumer'

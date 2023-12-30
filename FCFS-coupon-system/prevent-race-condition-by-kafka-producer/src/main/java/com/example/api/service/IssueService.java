@@ -2,17 +2,14 @@ package com.example.api.service;
 
 import com.example.api.producer.CouponCreateProducer;
 import com.example.api.repository.CouponCountRepository;
-import com.example.api.repository.CouponRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class IssueService {
-    private final CouponRepository couponRepository;
     private final CouponCountRepository couponCountRepository;
     private final CouponCreateProducer couponCreateProducer;
 
-    public IssueService(CouponRepository couponRepository, CouponCountRepository couponCountRepository, CouponCreateProducer couponCreateProducer) {
-        this.couponRepository = couponRepository;
+    public IssueService(CouponCountRepository couponCountRepository, CouponCreateProducer couponCreateProducer) {
         this.couponCountRepository = couponCountRepository;
         this.couponCreateProducer = couponCreateProducer;
     }
