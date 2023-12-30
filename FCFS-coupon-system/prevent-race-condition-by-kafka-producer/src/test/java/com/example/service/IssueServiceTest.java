@@ -18,6 +18,9 @@ class IssueServiceTest {
     @Autowired
     private CouponRepository couponRepository;
 
+    /**
+     * 실시간 처리가 아니므로 데이터 insert 건수를 조회하기 전에 sleep 수행
+     */
     @Test
     void issue_many_time() throws InterruptedException {
         int issueAttemptCount = 1_000;
@@ -36,6 +39,7 @@ class IssueServiceTest {
         }
 
         latch.await();
+        Thread.sleep(3000);
 
         long count = couponRepository.count();
         assertThat(count).isEqualTo(100);
