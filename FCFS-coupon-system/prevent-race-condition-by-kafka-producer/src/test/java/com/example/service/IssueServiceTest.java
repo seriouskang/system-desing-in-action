@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.repository.CouponRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,10 +9,14 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static org.assertj.core.api.Assertions.*;
+
 @SpringBootTest
 class IssueServiceTest {
     @Autowired
     private IssueService issueService;
+    @Autowired
+    private CouponRepository couponRepository;
 
     @Test
     void issue_many_time() throws InterruptedException {
@@ -31,5 +36,8 @@ class IssueServiceTest {
         }
 
         latch.await();
+
+        long count = couponRepository.count();
+        assertThat(count).isEqualTo(100);
     }
 }
