@@ -1,3 +1,4 @@
 rootProject.name = 'FCFS-coupon-system'
 
 include 'race-condition'
+include 'prevent-race-condition-by-redis'
