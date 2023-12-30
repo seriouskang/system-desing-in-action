@@ -44,4 +44,27 @@ class IssueServiceTest {
         long count = couponRepository.count();
         assertThat(count).isEqualTo(100);
     }
+
+    @Test
+    void issue_one_coupon_per_user() throws InterruptedException {
+        int issueAttemptCount = 1_000;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch latch = new CountDownLatch(issueAttemptCount);
+
+        for(int i=0; i<issueAttemptCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    issueService.issue(1L);
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+        Thread.sleep(3000);
+
+        long count = couponRepository.count();
+        assertThat(count).isEqualTo(1);
+    }
 }
