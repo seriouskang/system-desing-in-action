@@ -29,6 +29,9 @@ class IssueServiceTest {
         assertThat(issuedCount).isEqualTo(1);
     }
 
+    /**
+     * race-condition issue 발생
+     */
     @Test
     void issue_many_time() throws InterruptedException {
         int issueAttemptCount = 1_000;
